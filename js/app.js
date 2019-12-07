@@ -32,7 +32,7 @@ function Picture(src, name) {
   this.src = `../img/${src}.jpg`;
   this.title = name;
   this.alt = name;
-  
+
   picArray.push(this);
 }
 ///////////HELPER FUNCTION//////////////////////
@@ -40,7 +40,12 @@ function randomIndex(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
-
+function generateImages() {
+  var index = randomIndex(picArray.length - 1);
+  var indexTwo = randomIndex(picArray.length - 1);
+  console.log(index, indexTwo);
+  
+}
 
 
 
@@ -51,7 +56,7 @@ function randomIndex(max) {
 
 
 /////////////FUNCTIONS/METHODS//////////////////
-function createOnPageLoad{
+function createOnPageLoad() {
   new Picture ('bag', 'Star Wars rolling suitcase');
   new Picture ('banana', 'Banana Slicer');
   new Picture ('bathroom', 'Bathroom iPad holder');
@@ -75,6 +80,7 @@ function createOnPageLoad{
 
 }
 createOnPageLoad();
+generateImages();
 console.table(picArray);
 
 
