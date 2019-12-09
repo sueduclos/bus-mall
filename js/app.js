@@ -22,7 +22,7 @@ function randomIndex(max) {
 }
 
 function generateImages() {
-  var index = randomIndex(picArray.length - 1);
+  var index = randomIndex(picArray.length);
 
   picOne.src = picArray[index].src;
   picOne.title = picArray[index].title;
@@ -30,30 +30,33 @@ function generateImages() {
 
   picArray[index].viewed++;
 
-  var indexTwo = randomIndex(picArray.length - 1);
+  var indexTwo = randomIndex(picArray.length);
 
   while(indexTwo === index) {
-    indexTwo = randomIndex(picArray.length - 1);
+    indexTwo = randomIndex(picArray.length);
   }
+
   picTwo.src = picArray[indexTwo].src;
   picTwo.title = picArray[indexTwo].title;
   picTwo.alt = picArray[indexTwo].alt;
 
   picArray[index].viewed++;
-  // console.log(index, indexTwo);
+
+  console.table(picArray);
 }
 
 function handleClick(event) {
   var vote = event.target.title;
+  console.log(vote, 'was clicked');
   for(var i = 0; i < picArray.length; i++) {
     if(vote === picArray[i].title) {
       picArray[i].clicked++;
     }
   }
+
   generateImages();
 }
-
-/////////////FUNCTIONS/METHODS//////////////////
+/////////////////INSTANTIATIONS//////////////////
 function createOnPageLoad() {
   new Picture ('bag', 'Star Wars rolling suitcase');
   new Picture ('banana', 'Banana Slicer');
