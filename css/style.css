@@ -1,3 +1,21 @@
 body {
   background-color:#DDD;
+  width: 100%;
+}
+
+section {
+  width: 100%;
+}
+
+img {
+  float:left;
+  width: 20%;
+  margin: 5%;
+}
+
+#picContainer > section {
+  margin: auto;
+  width: 910px;
+  
+
 }
