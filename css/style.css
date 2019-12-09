@@ -12,3 +12,10 @@ img {
   width: 20%;
   margin: 5%;
 }
+
+#picContainer > section {
+  margin: auto;
+  width: 910px;
+  
+
+}

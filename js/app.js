@@ -3,8 +3,10 @@
 /////////////GLOBAL VARIABLES///////////////////
 var picOne = document.getElementById('pictureOne');
 var picTwo = document.getElementById('pictureTwo');
+var picThree = document.getElementById('pictureThree');
 var picContainer = document.getElementById('image-container');
 var picArray = [];
+var tallyOfVotes = 0;
 
 /////////////CONSTRUCTOR////////////////////////
 function Picture(src, name) {
@@ -21,25 +23,30 @@ function randomIndex(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
+///////////THIS CAN BE DRYER////////////////////
 function generateImages() {
   var index = randomIndex(picArray.length);
-
   picOne.src = picArray[index].src;
   picOne.title = picArray[index].title;
   picOne.alt = picArray[index].alt;
-
   picArray[index].viewed++;
 
   var indexTwo = randomIndex(picArray.length);
-
   while(indexTwo === index) {
     indexTwo = randomIndex(picArray.length);
   }
-
   picTwo.src = picArray[indexTwo].src;
   picTwo.title = picArray[indexTwo].title;
   picTwo.alt = picArray[indexTwo].alt;
+  picArray[index].viewed++;
 
+  var indexThree = randomIndex(picArray.length);
+  while(indexThree === indexTwo || indexThree === index) {
+    indexThree = randomIndex(picArray.length);
+  }
+  picThree.src = picArray[indexThree].src;
+  picThree.title = picArray[indexThree].title;
+  picThree.alt = picArray[indexThree].alt;
   picArray[index].viewed++;
 
   console.table(picArray);
@@ -51,12 +58,13 @@ function handleClick(event) {
   for(var i = 0; i < picArray.length; i++) {
     if(vote === picArray[i].title) {
       picArray[i].clicked++;
+      tallyOfVotes++;
     }
   }
 
   generateImages();
 }
-/////////////////INSTANTIATIONS//////////////////
+//////////////Instantiations///////////////////////
 function createOnPageLoad() {
   new Picture ('bag', 'Star Wars rolling suitcase');
   new Picture ('banana', 'Banana Slicer');
