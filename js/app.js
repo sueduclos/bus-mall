@@ -1,32 +1,10 @@
 'use strict';
-console.log('proof of life');
-//DISPLAY THREE UNIQUE PRODUCTS BY CHANCE
-//CREATE AN ALGORITHM RANDOMLY GENERATES THREE UNIQUE PRODUCT IMAGES
-//ATTACH AN EVENT LISTENER TO THE SECTION OF THE HTML PAGE WHERE IMAGES ARE GOING TO BE DISPLAYED
-//USER CLICKS A PRODUCT, GENERATE THREE NEW PRODUCTS FOR THE USER TO PICK FROM
 
 /////////////GLOBAL VARIABLES///////////////////
 var picOne = document.getElementById('pictureOne');
 var picTwo = document.getElementById('pictureTwo');
-// var picThree = document.getElementById('pictureThree');
 var picContainer = document.getElementById('image-container');
-
 var picArray = [];
-////////////DISPLAY 3 IMAGES TO THE PAGE////////
-//image tag has three properties 'src', 'title, and 'alt'
-
-// picOne.src = '../img/bag.jpg';
-// picOne.title = 'Star Wars rolling suitcase';
-// picOne.alt = 'Star Wars rolling suitcase';
-
-// picTwo.src = '../img/banana.jpg';
-// picTwo.title = 'Banana slicer';
-// picTwo.alt = 'Banana slicer';
-
-// picThree.src = '../img/bathroom.jpg';
-// picThree.title = 'Bathroom iPad holder';
-// picThree.alt = 'Bathroom iPad holder';
-
 
 /////////////CONSTRUCTOR////////////////////////
 function Picture(src, name) {
@@ -60,15 +38,19 @@ function generateImages() {
   picTwo.src = picArray[indexTwo].src;
   picTwo.title = picArray[indexTwo].title;
   picTwo.alt = picArray[indexTwo].alt;
-  
+
   picArray[index].viewed++;
   // console.log(index, indexTwo);
 }
 
 function handleClick(event) {
-  generateImages();
   var vote = event.target.title;
-
+  for(var i = 0; i < picArray.length; i++) {
+    if(vote === picArray[i].title) {
+      picArray[i].clicked++;
+    }
+  }
+  generateImages();
 }
 
 /////////////FUNCTIONS/METHODS//////////////////
@@ -99,16 +81,3 @@ createOnPageLoad();
 picContainer.addEventListener('click', handleClick);
 generateImages();
 console.table(picArray);
-
-
-
-
-
-
-
-
-
-
-
-
-////////////INSTANTIATIONS//////////////////////
