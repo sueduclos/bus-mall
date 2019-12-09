@@ -8,7 +8,7 @@ console.log('proof of life');
 /////////////GLOBAL VARIABLES///////////////////
 var picOne = document.getElementById('pictureOne');
 var picTwo = document.getElementById('pictureTwo');
-var picThree = document.getElementById('pictureThree');
+// var picThree = document.getElementById('pictureThree');
 var picContainer = document.getElementById('image-container');
 
 var picArray = [];
@@ -33,6 +33,8 @@ function Picture(src, name) {
   this.src = `../img/${src}.jpg`;
   this.title = name;
   this.alt = name;
+  this.clicked = 0;
+  this.viewed = 0;
 
   picArray.push(this);
 }
@@ -43,9 +45,12 @@ function randomIndex(max) {
 
 function generateImages() {
   var index = randomIndex(picArray.length - 1);
+
   picOne.src = picArray[index].src;
   picOne.title = picArray[index].title;
   picOne.alt = picArray[index].alt;
+
+  picArray[index].viewed++;
 
   var indexTwo = randomIndex(picArray.length - 1);
 
@@ -56,21 +61,15 @@ function generateImages() {
   picTwo.title = picArray[indexTwo].title;
   picTwo.alt = picArray[indexTwo].alt;
   
-  console.log(index, indexTwo); 
+  picArray[index].viewed++;
+  // console.log(index, indexTwo);
 }
 
 function handleClick(event) {
   generateImages();
-  console.log(event.target.title);
+  var vote = event.target.title;
 
 }
-
-
-
-
-
-
-
 
 /////////////FUNCTIONS/METHODS//////////////////
 function createOnPageLoad() {
@@ -98,6 +97,7 @@ function createOnPageLoad() {
 }
 createOnPageLoad();
 picContainer.addEventListener('click', handleClick);
+generateImages();
 console.table(picArray);
 
 
