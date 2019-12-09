@@ -9,6 +9,7 @@ console.log('proof of life');
 var picOne = document.getElementById('pictureOne');
 var picTwo = document.getElementById('pictureTwo');
 var picThree = document.getElementById('pictureThree');
+var picContainer = document.getElementById('image-container');
 
 var picArray = [];
 ////////////DISPLAY 3 IMAGES TO THE PAGE////////
@@ -42,11 +43,27 @@ function randomIndex(max) {
 
 function generateImages() {
   var index = randomIndex(picArray.length - 1);
+  picOne.src = picArray[index].src;
+  picOne.title = picArray[index].title;
+  picOne.alt = picArray[index].alt;
+
   var indexTwo = randomIndex(picArray.length - 1);
-  console.log(index, indexTwo);
+
+  while(indexTwo === index) {
+    indexTwo = randomIndex(picArray.length - 1);
+  }
+  picTwo.src = picArray[indexTwo].src;
+  picTwo.title = picArray[indexTwo].title;
+  picTwo.alt = picArray[indexTwo].alt;
   
+  console.log(index, indexTwo); 
 }
 
+function handleClick(event) {
+  generateImages();
+  console.log(event.target.title);
+
+}
 
 
 
@@ -77,10 +94,10 @@ function createOnPageLoad() {
   new Picture ('usb', 'Tentacle USB');
   new Picture ('water-can', 'Crooked Watering Can');
   new Picture ('wine-glass', 'Fancy Wine Glass');
-
+  
 }
 createOnPageLoad();
-generateImages();
+picContainer.addEventListener('click', handleClick);
 console.table(picArray);
 
 
