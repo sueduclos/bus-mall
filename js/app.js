@@ -4,9 +4,15 @@
 var picOne = document.getElementById('pictureOne');
 var picTwo = document.getElementById('pictureTwo');
 var picThree = document.getElementById('pictureThree');
+var heading = document.getElementById('round');
 var picContainer = document.getElementById('image-container');
 var picArray = [];
-var tallyOfVotes = 0;
+var picArrayContainer  = [picOne, picTwo, picThree];
+var previousPictures = [];
+var rounds = 25;
+var titleArray =[];
+var clickArray = [];
+var viewArray = [];
 
 /////////////CONSTRUCTOR////////////////////////
 function Picture(src, name) {
@@ -25,31 +31,20 @@ function randomIndex(max) {
 
 ///////////THIS CAN BE DRYER////////////////////
 function generateImages() {
-  var index = randomIndex(picArray.length);
-  picOne.src = picArray[index].src;
-  picOne.title = picArray[index].title;
-  picOne.alt = picArray[index].alt;
-  picArray[index].viewed++;
+  var currentPictures = [];
+  for(var i = 0; i < picArrayContainer.length; i++) {
+    var newIndex = randomIndex(picArray.length);
+    while(currentPictures.includes(newIndex) || previousPictures.includes(newIndex)) {
+      newIndex = randomIndex(picArray.length);
+    }
+    currentPictures.push(newIndex);
 
-  var indexTwo = randomIndex(picArray.length);
-  while(indexTwo === index) {
-    indexTwo = randomIndex(picArray.length);
+    picArrayContainer[i].src = picArray[newIndex].src;
+    picArrayContainer[i].title = picArray[newIndex].title;
+    picArrayContainer[i].alt = picArray[newIndex].alt;
+
+    picArray[newIndex].viewed++;
   }
-  picTwo.src = picArray[indexTwo].src;
-  picTwo.title = picArray[indexTwo].title;
-  picTwo.alt = picArray[indexTwo].alt;
-  picArray[index].viewed++;
-
-  var indexThree = randomIndex(picArray.length);
-  while(indexThree === indexTwo || indexThree === index) {
-    indexThree = randomIndex(picArray.length);
-  }
-  picThree.src = picArray[indexThree].src;
-  picThree.title = picArray[indexThree].title;
-  picThree.alt = picArray[indexThree].alt;
-  picArray[index].viewed++;
-
-  console.table(picArray);
 }
 
 function handleClick(event) {
@@ -58,9 +53,10 @@ function handleClick(event) {
   for(var i = 0; i < picArray.length; i++) {
     if(vote === picArray[i].title) {
       picArray[i].clicked++;
-      tallyOfVotes++;
     }
   }
+  rounds--;
+
 
   generateImages();
 }
