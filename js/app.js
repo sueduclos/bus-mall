@@ -29,6 +29,10 @@ function randomIndex(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
+function hide(elem) {
+  elem.style.display = 'none';
+}
+
 ///////////THIS CAN BE DRYER////////////////////
 function generateImages() {
   var currentPictures = [];
@@ -49,17 +53,76 @@ function generateImages() {
 
 function handleClick(event) {
   var vote = event.target.title;
-  console.log(vote, 'was clicked');
   for(var i = 0; i < picArray.length; i++) {
     if(vote === picArray[i].title) {
       picArray[i].clicked++;
     }
   }
   rounds--;
-
-
+  heading.textContent = `Round ${rounds} left!`;
   generateImages();
+
+  if(rounds === 0) {
+    hide(picContainer);
+    saveVote();
+    graph();
+  }
 }
+
+//////////////LOCAL STORAGE/////////////////
+function saveVote () {
+  var stringData = JSON.stringify(picArray);
+  localStorage.setItem('item', stringData);
+}
+
+function retrieveVote() {
+  var getData = localStorage.getItem('item');
+  var parseData = JSON.parse(getData);
+  if (parseData !== null) {
+    for (var i = 0; i < picArray.length; i++) {
+      picArray[i].clicked += parseData[i].clicked;
+      picArray[i].viewed += parseData[i].viewed;
+    }
+  }
+}
+
+
+/////////////////GRAPH//////////////////////
+//CREDIT TO Chart.Js
+
+function createAxis() {
+  for (var i = 0; i < picArray.length; i++) {
+    titleArray.push(picArray[i].title);
+    clickArray.push(picArray[i].clicked);
+    viewArray.push(picArray[i].viewed);
+  }
+}
+
+function graph() {
+  createAxis();
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: titleArray,
+      datasets: [{
+        label: 'Voted',
+        backgroundColor: 'black',
+        borderColor: 'black',
+        data: clickArray,
+      },
+      {
+        label: 'Viewed',
+        backgroundColor: 'gray',
+        borderColor: 'gray',
+        data: viewArray,
+      },
+      ],
+    },
+  });
+}
+
+
 //////////////Instantiations///////////////////////
 function createOnPageLoad() {
   new Picture ('bag', 'Star Wars rolling suitcase');
@@ -82,9 +145,11 @@ function createOnPageLoad() {
   new Picture ('usb', 'Tentacle USB');
   new Picture ('water-can', 'Crooked Watering Can');
   new Picture ('wine-glass', 'Fancy Wine Glass');
-  
+
 }
 createOnPageLoad();
 picContainer.addEventListener('click', handleClick);
+retrieveVote();
 generateImages();
-console.table(picArray);
+heading.textContent = `Round ${rounds} left!`;
+
