@@ -1,6 +1,10 @@
 body {
-  background-color:#DDD;
-  width: 100%;
+  width: 100vw;
+  background-image: url('../img/patrick-tomasso-5hvn-2WW6rY-unsplash.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  color: bisque;
+  font-size: 25px;
 }
 
 section {
