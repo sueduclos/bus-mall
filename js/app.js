@@ -49,6 +49,7 @@ function generateImages() {
 
     picArray[newIndex].viewed++;
   }
+  previousPictures = currentPictures;
 }
 
 function handleClick(event) {
@@ -100,6 +101,7 @@ function createAxis() {
 
 function graph() {
   createAxis();
+  Chart.defaults.global.defaultFontColor = 'white';
   var ctx = document.getElementById('myChart').getContext('2d');
   var chart = new Chart(ctx, {
     type: 'bar',
@@ -119,6 +121,7 @@ function graph() {
       },
       ],
     },
+    
   });
 }
 

@@ -17,3 +17,5 @@ https://www.chartjs.org/
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 ***Show/Hide an Element***  
 https://gomakethings.com/how-to-sho-and-hid-elements-with-vanilla-javascript/
+
+Photo by Patrick Tomasso on Unsplash
